@@ -7,7 +7,7 @@ import {
   Number,
 } from './ContactList.styled';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts/contacts-actions';
+import { deleteContact } from 'redux/contactsSlice';
 import { useSelector } from 'react-redux';
 import { getContacts } from 'redux/contacts/contacts-selector';
 import { getFilterValue } from 'redux/filter/filter-selector';
