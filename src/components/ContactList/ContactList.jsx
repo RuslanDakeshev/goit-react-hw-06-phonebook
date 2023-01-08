@@ -1,24 +1,39 @@
-
 import PropTypes from 'prop-types';
-import { Btn, Contacts, ContactsItem, Name, Number } from "./ContactList.styled";
+import {
+  Btn,
+  Contacts,
+  ContactsItem,
+  Name,
+  Number,
+} from './ContactList.styled';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/contacts/contacts-actions';
+import { useSelector } from 'react-redux';
+import { getContacts } from 'redux/contacts/contacts-selector';
+import { getFilterValue } from 'redux/filter/filter-selector';
 
-export const ContactList = ({ contacts, deleteContact }) => {
+
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilterValue);
+  const dispatch = useDispatch(deleteContact);
+
+  const filteredContacts = contacts.filter(({ name }) =>
+    name.toLowerCase().includes(filter)
+  );
+
   return (
-    <>
-      <Contacts>
-        {contacts.map(({ id, name, number }) => {
-          return (
-            <ContactsItem key={id}>
-              <Name>{name}</Name>
-              <Number>{number}</Number>
-              <Btn type="button" onClick={() => deleteContact(id)}>
-                Delete
-              </Btn>
-            </ContactsItem>
-          );
-        })}
-      </Contacts>
-    </>
+    <Contacts>
+      {filteredContacts.map(({ name, number, id }) => (
+        <ContactsItem key={id}>
+          <Name>{name}</Name>
+          <Number>{number}</Number>
+          <Btn type="button" onClick={() => dispatch(deleteContact(id))}>
+            Delete
+          </Btn>
+        </ContactsItem>
+      ))}
+    </Contacts>
   );
 };
 
