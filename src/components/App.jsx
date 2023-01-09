@@ -1,4 +1,4 @@
-import Form from './Form/Form';
+import { Form } from '../components/Form/Form';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Container, Title, Subtitle } from './App.styled';
